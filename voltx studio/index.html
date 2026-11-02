@@ -1,0 +1,3431 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+ <meta name="description" content="Voltx Studio is an Egyptian creative digital studio specializing in website design and development, graphic design, and AI-powered visual content creation. We turn creative ideas into digital experiences.">
+
+    <title>Voltx Studio</title>
+
+    <link rel="icon" type="image/png" href="images/our logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* =========================================================
+           ROOT
+        ========================================================= */
+
+        :root {
+
+            --background: #08080C;
+            --surface: #0F0F16;
+
+            --primary: #7C3AED;
+            --primary-hover: #8B5CF6;
+
+            --cyan: #06B6D4;
+
+            --text: #F8FAFC;
+            --muted: #A1A1AA;
+
+            --border: #24242F;
+
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+            scroll-padding-top: 80px;
+
+        }
+
+
+        body {
+
+            min-width: 320px;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            font-family:
+                "Space Grotesk",
+                Arial,
+                sans-serif;
+
+            overflow-x: hidden;
+
+        }
+
+
+        a {
+
+            text-decoration: none;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
+        }
+
+
+        img {
+
+            max-width: 100%;
+
+            display: block;
+
+        }
+
+
+        /* =========================================================
+           LOADING SCREEN
+        ========================================================= */
+
+        #loading-screen {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 99999;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: #08080C;
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transition:
+                opacity .7s ease,
+                visibility .7s ease;
+
+        }
+
+
+        #loading-screen.hide {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+        }
+
+
+        .loader-content {
+
+            width: min(420px, 90vw);
+
+            text-align: center;
+
+        }
+
+
+        .loader-logo {
+
+            margin-bottom: 30px;
+
+            color: var(--text);
+
+            font-size: clamp(32px, 8vw, 42px);
+
+            font-weight: 700;
+
+            letter-spacing: -2px;
+
+        }
+
+
+        .loader-logo span {
+
+            color: var(--primary);
+
+        }
+
+
+        .loader-spinner {
+
+            width: 48px;
+
+            height: 48px;
+
+            margin: 0 auto 25px;
+
+            border: 3px solid var(--border);
+
+            border-top-color: var(--primary);
+
+            border-radius: 50%;
+
+            animation:
+                loaderSpin .9s linear infinite;
+
+            box-shadow:
+                0 0 25px
+                rgba(124, 58, 237, .3);
+
+        }
+
+
+        .loader-content p {
+
+            margin-bottom: 15px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+        }
+
+
+        .loader-line {
+
+            width: 100%;
+
+            height: 4px;
+
+            overflow: hidden;
+
+            background: var(--border);
+
+            border-radius: 20px;
+
+        }
+
+
+        .loader-progress {
+
+            width: 0%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--cyan)
+                );
+
+            border-radius: 20px;
+
+            transition: width .1s linear;
+
+        }
+
+
+        .loader-percent {
+
+            display: block;
+
+            margin-top: 12px;
+
+            color: var(--primary);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+
+        @keyframes loaderSpin {
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 76px;
+
+            z-index: 1000;
+
+            background:
+                rgba(15, 15, 22, .88);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        .nav-container {
+
+            width: min(1200px, 100%);
+
+            height: 100%;
+
+            margin: auto;
+
+            padding:
+                0
+                clamp(18px, 4vw, 30px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        /* =========================================================
+           LOGO
+        ========================================================= */
+
+        .logo {
+
+            flex-shrink: 0;
+
+            color: var(--text);
+
+            font-size:
+                clamp(21px, 3vw, 25px);
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .logo span {
+
+            color: var(--primary);
+
+        }
+
+
+        /* =========================================================
+           DESKTOP NAV LINKS
+        ========================================================= */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap:
+                clamp(18px, 3vw, 34px);
+
+            list-style: none;
+
+        }
+
+
+        .nav-links a {
+
+            position: relative;
+
+            color: var(--muted);
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            white-space: nowrap;
+
+            transition: .3s ease;
+
+        }
+
+
+        .nav-links a:hover,
+        .nav-links a.active {
+
+            color: var(--text);
+
+        }
+
+
+        .nav-links a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: -9px;
+
+            width: 0;
+
+            height: 2px;
+
+            background: var(--primary);
+
+            border-radius: 10px;
+
+            transform:
+                translateX(-50%);
+
+            transition: .3s ease;
+
+        }
+
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+
+            width: 100%;
+
+        }
+
+
+        /* =========================================================
+           NAV BUTTON
+        ========================================================= */
+
+        .nav-btn {
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 11px 18px;
+
+            color: white;
+
+            background: var(--primary);
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 0 20px
+                rgba(124, 58, 237, .2);
+
+            transition: .3s ease;
+
+        }
+
+
+        .nav-btn span {
+
+            font-size: 18px;
+
+            transition: .3s ease;
+
+        }
+
+
+        .nav-btn:hover {
+
+            background: var(--primary-hover);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 30px
+                rgba(124, 58, 237, .35);
+
+        }
+
+
+        .nav-btn:hover span {
+
+            transform:
+                translate(3px, -3px);
+
+        }
+
+
+        /* =========================================================
+           HAMBURGER BUTTON
+           
+           IMPORTANT:
+           Hidden everywhere by default.
+           Only appears inside mobile media query.
+        ========================================================= */
+
+        .menu-btn {
+
+            display: none;
+
+            width: 42px;
+
+            height: 42px;
+
+            padding: 9px;
+
+            background: transparent;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+        .menu-btn span {
+
+            display: block;
+
+            width: 100%;
+
+            height: 2px;
+
+            margin: 5px 0;
+
+            background: var(--text);
+
+            border-radius: 10px;
+
+            transition: .3s ease;
+
+        }
+
+
+        /* Hamburger -> X */
+
+        .menu-btn.active span:nth-child(1) {
+
+            transform:
+                translateY(7px)
+                rotate(45deg);
+
+        }
+
+
+        .menu-btn.active span:nth-child(2) {
+
+            opacity: 0;
+
+        }
+
+
+        .menu-btn.active span:nth-child(3) {
+
+            transform:
+                translateY(-7px)
+                rotate(-45deg);
+
+        }
+
+
+        /* =========================================================
+           MOBILE MENU
+           
+           IMPORTANT:
+           Completely hidden on desktop.
+        ========================================================= */
+
+        .mobile-menu {
+
+            display: none;
+
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+
+            width: 100%;
+
+            min-height: 100svh;
+
+            padding:
+                clamp(110px, 15vh, 150px)
+                clamp(20px, 5vw, 60px)
+                clamp(70px, 10vh, 100px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at center,
+                    rgba(124, 58, 237, .10),
+                    transparent 42%
+                ),
+
+                var(--background);
+
+        }
+
+
+        /* =========================================================
+           HERO CONTENT
+        ========================================================= */
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 5;
+
+            width: min(900px, 100%);
+
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 25px;
+
+            padding:
+                8px 15px;
+
+            color: var(--muted);
+
+            background:
+                rgba(124, 58, 237, .08);
+
+            border:
+                1px solid
+                rgba(124, 58, 237, .3);
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+        }
+
+
+        .hero-badge span {
+
+            color: var(--cyan);
+
+        }
+
+
+        .hero h1 {
+
+            color: var(--text);
+
+            font-size:
+                clamp(40px, 7vw, 72px);
+
+            line-height: 1.05;
+
+            font-weight: 700;
+
+            letter-spacing: -2px;
+
+        }
+
+
+        .hero h1 .purple {
+
+            color: var(--primary);
+
+        }
+
+
+        .hero h1 .gradient {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--cyan)
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+
+        .hero-description {
+
+            max-width: 650px;
+
+            margin:
+                25px auto 35px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size:
+                clamp(15px, 2vw, 18px);
+
+            line-height: 1.9;
+
+        }
+
+
+        /* =========================================================
+           HERO BUTTONS
+        ========================================================= */
+
+        .hero-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+        }
+
+
+        .hero-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            min-width: 180px;
+
+            padding:
+                13px 22px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .hero-btn.primary {
+
+            color: white;
+
+            background: var(--primary);
+
+            box-shadow:
+                0 10px 30px
+                rgba(124, 58, 237, .2);
+
+        }
+
+
+        .hero-btn.primary:hover {
+
+            background:
+                var(--primary-hover);
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 15px 40px
+                rgba(124, 58, 237, .35);
+
+        }
+
+
+        .hero-btn.secondary {
+
+            color: var(--text);
+
+            background:
+                rgba(255,255,255,.02);
+
+            border:
+                1px solid var(--border);
+
+        }
+
+
+        .hero-btn.secondary:hover {
+
+            border-color:
+                var(--primary);
+
+            color:
+                var(--primary);
+
+            transform:
+                translateY(-4px);
+
+        }
+
+
+        /* =========================================================
+           BIG 3D V
+        ========================================================= */
+
+        .big-v {
+
+            position: absolute;
+
+            top: 50%;
+
+            z-index: 1;
+
+            color: transparent;
+
+            font-size:
+                clamp(220px, 35vw, 520px);
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            -webkit-text-stroke:
+                2px
+                rgba(124, 58, 237, .15);
+
+            text-shadow:
+                0 0 40px
+                rgba(124, 58, 237, .15);
+
+            pointer-events: none;
+
+            transform-style: preserve-3d;
+
+            perspective: 800px;
+
+        }
+
+
+        .big-v.left {
+
+            left:
+                clamp(-180px, -8vw, -80px);
+
+            transform:
+                translateY(-50%)
+                rotateY(0deg);
+
+            animation:
+                rotateVLeft
+                8s
+                linear
+                infinite;
+
+        }
+
+
+        .big-v.right {
+
+            right:
+                clamp(-180px, -8vw, -80px);
+
+            transform:
+                translateY(-50%)
+                rotateY(180deg);
+
+            animation:
+                rotateVRight
+                8s
+                linear
+                infinite;
+
+        }
+
+
+        @keyframes rotateVLeft {
+
+            0% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(0deg);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(180deg);
+
+            }
+
+            100% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(360deg);
+
+            }
+
+        }
+
+
+        @keyframes rotateVRight {
+
+            0% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(180deg);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(0deg);
+
+            }
+
+            100% {
+
+                transform:
+                    translateY(-50%)
+                    rotateY(-180deg);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SECTION GENERAL
+        ========================================================= */
+
+        section {
+
+            position: relative;
+
+            width: 100%;
+
+            padding:
+                110px
+                clamp(20px, 6vw, 80px);
+
+            overflow: hidden;
+
+        }
+
+
+        .section-container {
+
+            width:
+                min(1200px, 100%);
+
+            margin: auto;
+
+        }
+
+
+        .section-heading {
+
+            margin-bottom: 55px;
+
+        }
+
+
+        .section-label {
+
+            display: inline-block;
+
+            margin-bottom: 12px;
+
+            color: var(--primary);
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .section-heading h2 {
+
+            color: var(--text);
+
+            font-size:
+                clamp(32px, 5vw, 48px);
+
+            line-height: 1.1;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .section-heading p {
+
+            max-width: 650px;
+
+            margin-top: 18px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about {
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .about-box {
+
+            position: relative;
+
+            padding:
+                clamp(30px, 5vw, 60px);
+
+            background:
+                rgba(8,8,12,.7);
+
+            border:
+                1px solid var(--primary);
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 0 50px
+                rgba(124,58,237,.08);
+
+            overflow: hidden;
+
+        }
+
+
+        .about-box::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: -100px;
+
+            right: -100px;
+
+            width: 250px;
+
+            height: 250px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.18),
+                    transparent 70%
+                );
+
+            filter: blur(20px);
+
+        }
+
+
+        .about-box h2 {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-bottom: 25px;
+
+            color: white;
+
+            font-size:
+                clamp(28px, 4vw, 42px);
+
+        }
+
+
+        .about-box h2 span {
+
+            color: var(--primary);
+
+        }
+
+
+        .about-box p {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 850px;
+
+            margin-bottom: 20px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size:
+                clamp(15px, 2vw, 18px);
+
+            line-height: 2;
+
+        }
+
+
+        .about-line {
+
+            width: 80px;
+
+            height: 3px;
+
+            margin-top: 30px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--cyan)
+                );
+
+            border-radius: 10px;
+
+        }
+
+
+        /* =========================================================
+           SERVICES
+        ========================================================= */
+
+        .services {
+
+            background:
+                var(--background);
+
+        }
+
+
+        .services-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+        }
+
+
+        .service-card {
+
+            position: relative;
+
+            min-height: 260px;
+
+            padding: 30px;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            transition: .35s ease;
+
+        }
+
+
+        .service-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--primary),
+                    transparent
+                );
+
+            transform:
+                translateX(-100%);
+
+            transition: .5s ease;
+
+        }
+
+
+        .service-card:hover {
+
+            transform:
+                translateY(-8px);
+
+            border-color:
+                rgba(124,58,237,.55);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.25);
+
+        }
+
+
+        .service-card:hover::before {
+
+            transform:
+                translateX(100%);
+
+        }
+
+
+        .service-number {
+
+            margin-bottom: 35px;
+
+            color:
+                rgba(124,58,237,.55);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .service-card h3 {
+
+            margin-bottom: 15px;
+
+            color: var(--text);
+
+            font-size: 22px;
+
+        }
+
+
+        .service-card p {
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.9;
+
+        }
+
+
+        /* =========================================================
+           WORKS
+        ========================================================= */
+
+        .works {
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .works-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .work-card {
+
+            position: relative;
+
+            min-height: 320px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #12121B,
+                    #0A0A0F
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            transition: .35s ease;
+
+        }
+
+
+        .work-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+
+            height: 250px;
+
+            top: -100px;
+
+            right: -100px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.3),
+                    transparent 70%
+                );
+
+            transition: .4s ease;
+
+        }
+
+
+        .work-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(124,58,237,.5);
+
+        }
+
+
+        .work-card:hover::before {
+
+            transform:
+                scale(1.4);
+
+        }
+
+
+        .work-content {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .work-tag {
+
+            display: inline-block;
+
+            margin-bottom: 10px;
+
+            padding:
+                5px 10px;
+
+            color: var(--primary);
+
+            background:
+                rgba(124,58,237,.1);
+
+            border-radius: 5px;
+
+            font-size: 11px;
+
+        }
+
+
+        .work-card h3 {
+
+            margin-bottom: 8px;
+
+            color: white;
+
+            font-size: 25px;
+
+        }
+
+
+        .work-card p {
+
+            max-width: 450px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+
+            background:
+                var(--background);
+
+        }
+
+
+        .contact-box {
+
+            position: relative;
+
+            padding:
+                clamp(35px, 6vw, 70px);
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,.12),
+                    rgba(6,182,212,.04)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+        }
+
+
+        .contact-box h2 {
+
+            margin-bottom: 18px;
+
+            color: white;
+
+            font-size:
+                clamp(30px, 5vw, 50px);
+
+        }
+
+
+        .contact-box p {
+
+            max-width: 600px;
+
+            margin:
+                0 auto 30px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            line-height: 1.8;
+
+        }
+
+
+        .contact-btn-main {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            padding:
+                14px 25px;
+
+            color: white;
+
+            background:
+                var(--primary);
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .contact-btn-main:hover {
+
+            background:
+                var(--primary-hover);
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(124,58,237,.3);
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+
+            position: relative;
+
+            padding:
+                80px
+                clamp(20px, 6vw, 80px)
+                25px;
+
+            background:
+                #08080C;
+
+            border-top:
+                1px solid var(--border);
+
+            overflow: hidden;
+
+        }
+
+
+        .footer-glow {
+
+            position: absolute;
+
+            width: 450px;
+
+            height: 450px;
+
+            right: -180px;
+
+            bottom: -280px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.22),
+                    transparent 70%
+                );
+
+            filter: blur(50px);
+
+            pointer-events: none;
+
+        }
+
+
+        .footer-container {
+
+            position: relative;
+
+            z-index: 2;
+
+            width:
+                min(1200px, 100%);
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr 1fr 1.3fr;
+
+            gap: 50px;
+
+        }
+
+
+        .footer-logo {
+
+            color: white;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .footer-logo span {
+
+            color: var(--primary);
+
+        }
+
+
+        .footer-brand p {
+
+            max-width: 280px;
+
+            margin:
+                18px 0 25px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+        }
+
+
+        .footer-socials {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+
+        .footer-socials a {
+
+            padding:
+                8px 12px;
+
+            color: var(--muted);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 7px;
+
+            font-size: 12px;
+
+            transition: .3s ease;
+
+        }
+
+
+        .footer-socials a:hover {
+
+            color: white;
+
+            border-color:
+                var(--primary);
+
+            background:
+                rgba(124,58,237,.1);
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        .footer-links {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+        }
+
+
+        .footer-links h3,
+        .footer-contact h3 {
+
+            margin-bottom: 10px;
+
+            color: white;
+
+            font-size: 16px;
+
+        }
+
+
+        .footer-links a {
+
+            width: fit-content;
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+            transition: .3s ease;
+
+        }
+
+
+        .footer-links a:hover {
+
+            color:
+                var(--primary);
+
+            transform:
+                translateX(5px);
+
+        }
+
+
+        .footer-contact p {
+
+            max-width: 260px;
+
+            margin-bottom: 15px;
+
+            color: var(--muted);
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .footer-phone {
+
+            display: block;
+
+            width: fit-content;
+
+            margin-bottom: 18px;
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .footer-phone:hover {
+
+            color:
+                var(--cyan);
+
+        }
+
+
+        .footer-btn {
+
+            display: inline-block;
+
+            padding:
+                11px 18px;
+
+            color: white;
+
+            background:
+                var(--primary);
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: .3s ease;
+
+        }
+
+
+        .footer-btn:hover {
+
+            background:
+                var(--primary-hover);
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(124,58,237,.3);
+
+        }
+
+
+        .footer-bottom {
+
+            position: relative;
+
+            z-index: 2;
+
+            width:
+                min(1200px, 100%);
+
+            margin:
+                60px auto 0;
+
+            padding-top: 22px;
+
+            border-top:
+                1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: #71717A;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .footer-bottom span:last-child {
+
+            color:
+                var(--primary);
+
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .footer-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .services-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+
+
+            /* Desktop links disappear */
+
+            .nav-links,
+            .nav-btn {
+
+                display: none;
+
+            }
+
+
+            /* Hamburger appears */
+
+            .menu-btn {
+
+                display: block;
+
+            }
+
+
+            /* =====================================================
+               MOBILE MENU
+            ===================================================== */
+
+            .mobile-menu {
+
+                position: fixed;
+
+                top: 76px;
+
+                left: 0;
+
+                width: 100%;
+
+                padding: 15px 20px 20px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                background:
+                    rgba(15,15,22,.98);
+
+                border-bottom:
+                    1px solid var(--border);
+
+                transform:
+                    translateY(-120%);
+
+                opacity: 0;
+
+                pointer-events: none;
+
+                transition:
+                    transform .35s ease,
+                    opacity .35s ease;
+
+                box-shadow:
+                    0 20px 40px
+                    rgba(0,0,0,.25);
+
+            }
+
+
+            /* Open */
+
+            .mobile-menu.active {
+
+                transform:
+                    translateY(0);
+
+                opacity: 1;
+
+                pointer-events:
+                    auto;
+
+            }
+
+
+            .mobile-menu a {
+
+                display: block;
+
+                padding: 15px;
+
+                color: var(--muted);
+
+                border-bottom:
+                    1px solid var(--border);
+
+                font-size: 15px;
+
+                transition: .3s ease;
+
+            }
+
+
+            .mobile-menu a:last-child {
+
+                border-bottom:
+                    none;
+
+            }
+
+
+            .mobile-menu a:hover,
+            .mobile-menu a.active {
+
+                color: white;
+
+                padding-right:
+                    20px;
+
+                border-color:
+                    var(--primary);
+
+            }
+
+
+            /* Big V */
+
+            .big-v {
+
+                opacity: .07;
+
+                font-size:
+                    clamp(180px, 50vw, 320px);
+
+            }
+
+
+            .big-v.left {
+
+                left: -130px;
+
+            }
+
+
+            .big-v.right {
+
+                right: -130px;
+
+            }
+
+
+            /* Hero */
+
+            .hero {
+
+                padding-left: 20px;
+
+                padding-right: 20px;
+
+            }
+
+
+            .hero h1 {
+
+                letter-spacing:
+                    -1px;
+
+            }
+
+
+            .hero-description {
+
+                line-height:
+                    1.8;
+
+            }
+
+
+            .section-heading {
+
+                margin-bottom:
+                    35px;
+
+            }
+
+
+            .works-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .footer-container {
+
+                grid-template-columns:
+                    1fr;
+
+                gap: 40px;
+
+            }
+
+
+            .footer-bottom {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap: 12px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                height: 68px;
+
+            }
+
+
+            .mobile-menu {
+
+                top: 68px;
+
+            }
+
+
+            .nav-container {
+
+                padding:
+                    0 18px;
+
+            }
+
+
+            .logo {
+
+                font-size: 21px;
+
+            }
+
+
+            .hero {
+
+                min-height:
+                    100svh;
+
+                padding-top:
+                    100px;
+
+            }
+
+
+            .hero-badge {
+
+                font-size:
+                    11px;
+
+            }
+
+
+            .hero-buttons {
+
+                flex-direction:
+                    column;
+
+                width: 100%;
+
+            }
+
+
+            .hero-btn {
+
+                width: 100%;
+
+                max-width:
+                    300px;
+
+            }
+
+
+            .services-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            section {
+
+                padding:
+                    80px 20px;
+
+            }
+
+
+            .service-card {
+
+                min-height:
+                    230px;
+
+            }
+
+
+            .work-card {
+
+                min-height:
+                    280px;
+
+                padding:
+                    25px;
+
+            }
+
+
+            .footer {
+
+                padding:
+                    60px 20px 20px;
+
+            }
+
+
+            .footer-bottom {
+
+                margin-top:
+                    45px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           VERY SMALL PHONES
+        ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .hero h1 {
+
+                font-size:
+                    36px;
+
+            }
+
+
+            .hero-description {
+
+                font-size:
+                    14px;
+
+            }
+
+
+            .menu-btn {
+
+                width:
+                    40px;
+
+                height:
+                    40px;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         LOADING SCREEN
+    ========================================================= -->
+
+    <div id="loading-screen">
+
+        <div class="loader-content">
+
+            <div class="loader-logo">
+                VOLTX<span>.</span>
+            </div>
+
+            <div class="loader-spinner"></div>
+
+            <p>
+                جاري تجهيز التجربة...
+            </p>
+
+            <div class="loader-line">
+
+                <div class="loader-progress"></div>
+
+            </div>
+
+            <span class="loader-percent">
+                0%
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+
+            <!-- Logo -->
+
+            <a href="#home" class="logo">
+
+                VOLTX<span>.</span>
+
+            </a>
+
+
+            <!-- Desktop Menu -->
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="#home" class="active">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#services">
+                        Services
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#works">
+                        Work
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#about">
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contact">
+                        Contact
+                    </a>
+                </li>
+
+                    <li>
+                    <a href="payments.html">
+                          Payments 
+                    </a>
+                </li>
+            </ul>
+
+
+            <!-- Desktop Button -->
+
+            <a href="#contact" class="nav-btn">
+
+                Let's Talk
+
+                <span>
+                    ↗
+                </span>
+
+            </a>
+
+
+            <!-- Hamburger -->
+
+            <button
+                class="menu-btn"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+                type="button">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =====================================================
+             MOBILE MENU
+             
+             IMPORTANT:
+             There is ONLY ONE mobile-menu.
+        ====================================================== -->
+
+        <div class="mobile-menu">
+
+            <a href="#home" class="active">
+                Home
+            </a>
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#works">
+                Work
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main
+        class="hero"
+        id="home">
+
+
+        <!-- Left V -->
+
+        <div class="big-v left">
+            V
+        </div>
+
+
+        <!-- Right V -->
+
+        <div class="big-v right">
+            V
+        </div>
+
+
+        <!-- Hero Content -->
+
+        <div class="hero-content">
+
+
+            <div class="hero-badge">
+
+                <span>⚡</span>
+
+                Voltx Studio
+
+                <span>✦</span>
+
+            </div>
+
+
+            <h1>
+
+                أهلاً بالفولتكساوي 👀
+ 
+                <br>
+
+                <span class="gradient">
+                    اصنع براندك
+                </span>
+
+                باحتراف
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                في Voltx Studio بنحوّل أفكارك إلى
+                تجارب رقمية عصرية تجمع بين
+                التصميم، التكنولوجيا والإبداع.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#contact"
+                    class="hero-btn primary">
+
+                    🚀
+
+                    ابدأ مشروعك الآن
+
+                    <span>↗</span>
+
+                </a>
+
+
+                <a
+                    href="#services"
+                    class="hero-btn secondary">
+
+                    اكتشف خدماتنا
+
+                    <span>↓</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         ABOUT
+    ========================================================= -->
+
+    <section
+        class="about"
+        id="about">
+
+        <div class="section-container">
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    About Us
+                </span>
+
+                <h2>
+                    مين Voltx Studio؟
+                </h2>
+
+            </div>
+
+
+            <div class="about-box">
+
+                <h2>
+                    بنحوّل الأفكار إلى
+                    <span>
+                        تجارب رقمية.
+                    </span>
+                </h2>
+
+
+                <p>
+
+                    في Voltx Studio، بنحوّل الأفكار
+                    إلى تجارب رقمية مبتكرة تجمع
+                    بين التصميم، التكنولوجيا،
+                    والإبداع.
+
+                </p>
+
+
+                <p>
+
+                    بنشتغل على تصميم وتطوير
+                    المواقع، التصميم الجرافيكي،
+                    الإعلانات، بناء الهوية البصرية،
+                    وصناعة المحتوى باستخدام
+                    تقنيات الذكاء الاصطناعي.
+
+                </p>
+
+
+                <p>
+
+                    هدفنا إن كل مشروع يطلع بشكل
+                    عصري، سريع، سهل الاستخدام،
+                    ومميز عن أي حاجة تانية.
+
+                </p>
+
+
+                <div class="about-line"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SERVICES
+    ========================================================= -->
+
+    <section
+        class="services"
+        id="services">
+
+        <div class="section-container">
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    Services
+                </span>
+
+                <h2>
+                    بنقدم إيه؟
+                </h2>
+
+                <p>
+
+                    خدمات إبداعية وتقنية تساعد
+                    البراند بتاعك يظهر بشكل أقوى
+                    وأكثر احترافية.
+
+                </p>
+
+            </div>
+
+
+            <div class="services-grid">
+
+
+                <!-- 01 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Web Design
+                    </h3>
+
+                    <p>
+
+                        تصميم واجهات مواقع عصرية
+                        ومميزة تركز على الشكل،
+                        تجربة المستخدم، وسهولة
+                        الاستخدام.
+
+                    </p>
+
+                </div>
+
+
+                <!-- 02 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Frontend Development
+                    </h3>
+
+                    <p>
+
+                        تحويل التصميم إلى موقع حقيقي
+                        باستخدام HTML وCSS وJavaScript
+                        مع تفاعل وحركة واستجابة
+                        لجميع الشاشات.
+
+                    </p>
+
+                </div>
+
+
+                <!-- 03 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Graphic Design
+                    </h3>
+
+                    <p>
+
+                        تصميمات جرافيك احترافية
+                        للسوشيال ميديا والإعلانات
+                        والمحتوى الرقمي.
+
+                    </p>
+
+                </div>
+
+
+                <!-- 04 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Advertising Design
+                    </h3>
+
+                    <p>
+
+                        تصميم إعلانات جذابة تساعد
+                        البراند على الظهور بشكل أقوى
+                        وأكثر احترافية.
+
+                    </p>
+
+                </div>
+
+
+                <!-- 05 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        05
+                    </div>
+
+                    <h3>
+                        Branding
+                    </h3>
+
+                    <p>
+
+                        بناء الهوية البصرية للبراند
+                        من الألوان والخطوط إلى الشكل
+                        العام للعلامة.
+
+                    </p>
+
+                </div>
+
+
+                <!-- 06 -->
+
+                <div class="service-card">
+
+                    <div class="service-number">
+                        06
+                    </div>
+
+                    <h3>
+                        AI Content
+                    </h3>
+
+                    <p>
+
+                        صناعة صور وفيديوهات ومحتوى
+                        إبداعي باستخدام تقنيات
+                        الذكاء الاصطناعي.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         WORKS
+    ========================================================= -->
+
+    <section
+        class="works"
+        id="works">
+
+        <div class="section-container">
+
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    Our Work
+                </span>
+
+                <h2>
+                    شغلنا بيتكلم عننا.
+                </h2>
+
+                <p>
+
+                    مجموعة من الأعمال والتجارب
+                    اللي بنصممها ونطورها بأسلوب
+                    Voltx.
+
+                </p>
+
+            </div>
+
+
+            <div class="works-grid">
+
+
+                <div class="work-card">
+<img src="images/car web.png" alt="" srcset="">
+                    <div class="work-content">
+
+                        <span class="work-tag">
+                        
+
+                    
+
+                    </div>
+
+                </div>
+
+
+                <div class="work-card">
+<img src="images/egypr.png" alt="" srcset="">
+
+                    <div class="work-content">
+
+                        <span class="work-tag">
+                    
+
+                    </div>
+
+                </div>
+
+
+                <div class="work-card">
+<img src="images/our logo.png  " alt="" srcset="">
+
+                    <div class="work-content">
+
+                       
+
+                    </div>
+
+                </div>
+
+
+                <div class="work-card">
+<video src="WhatsApp Video 2026-10-07 at 7.42.55 PM.mp4" controls style="width: 900px; height: 400px"></video>
+                    <div class="work-content">
+ 
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================= -->
+
+    <section
+        class="contact"
+        id="contact">
+
+        <div class="section-container">
+
+            <div class="contact-box">
+
+                <h2>
+                    عندك فكرة؟
+                </h2>
+
+                <p>
+
+                    احكيلنا فكرتك، وخلينا نحولها
+                    لتجربة رقمية مميزة مع Voltx Studio.
+
+                </p>
+
+                <a
+                    href="https://wa.me/201033151287"
+                    target="_blank"
+                    class="contact-btn-main">
+
+                    تواصل معنا
+
+                    <span>
+                        ↗
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer class="footer">
+
+        <div class="footer-glow"></div>
+
+
+        <div class="footer-container">
+
+
+            <!-- Brand -->
+
+            <div class="footer-brand">
+
+                <a
+                    href="#home"
+                    class="footer-logo">
+
+                    VOLTX<span>.</span>
+
+                </a>
+
+
+                <p>
+
+                    بنحوّل أفكارك إلى تجارب
+                    رقمية عصرية ومميزة.
+
+                </p>
+
+
+                <div class="footer-socials">
+
+                    <a href="https://www.instagram.com/voltx_studio/">
+                        Instagram
+                    </a>
+
+                    <a href=" https://www.facebook.com/profile.php?id=61590469802804">
+                        Facebook
+                    </a>
+
+                    <a
+                        href="https://wa.me/201033151287"
+                        target="_blank">
+
+                        WhatsApp
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Navigation -->
+
+            <div class="footer-links">
+
+                <h3>
+                    Navigation
+                </h3>
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#services">
+                    Services
+                </a>
+
+                <a href="#works">
+                    Work
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <!-- Services -->
+
+            <div class="footer-links">
+
+                <h3>
+                    Services
+                </h3>
+
+                <a href="#services">
+                    Web Design
+                </a>
+
+                <a href="#services">
+                    Frontend Development
+                </a>
+
+                <a href="#services">
+                    Graphic Design
+                </a>
+
+                <a href="#services">
+                    Branding
+                </a>
+
+                <a href="#services">
+                    AI Content
+                </a>
+
+            </div>
+
+
+            <!-- Contact -->
+
+            <div class="footer-contact">
+
+                <h3>
+                    Let's Talk ⚡
+                </h3>
+
+                <p>
+
+                    عندك فكرة أو مشروع؟
+                    خلينا نحولها لحاجة مميزة.
+
+                </p>
+
+
+              
+<h1 align="right" style="font-family: system-ui; font-size: 20px;">رقم الهاتف </h1>
+                    01033151287
+
+                 
+
+                <a
+                    href="https://wa.me/201033151287"
+                    target="_blank"
+                    class="footer-btn">
+
+                    تواصل معنا ↗
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Bottom -->
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Voltx Studio
+            </span>
+
+            <span>
+                DESIGN • DEVELOP • INNOVATE
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+
+        /* =====================================================
+           LOADING SCREEN
+        ===================================================== */
+
+        const loadingScreen =
+            document.getElementById(
+                "loading-screen"
+            );
+
+        const progress =
+            document.querySelector(
+                ".loader-progress"
+            );
+
+        const percent =
+            document.querySelector(
+                ".loader-percent"
+            );
+
+
+        let loading = 0;
+
+
+        const loadingInterval =
+            setInterval(() => {
+
+
+                loading += 1;
+
+
+                progress.style.width =
+                    loading + "%";
+
+
+                percent.textContent =
+                    loading + "%";
+
+
+                if (loading >= 100) {
+
+
+                    clearInterval(
+                        loadingInterval
+                    );
+
+
+                    setTimeout(() => {
+
+                        loadingScreen.classList.add(
+                            "hide"
+                        );
+
+                    }, 250);
+
+                }
+
+
+            }, 25);
+
+
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        const menuBtn =
+            document.querySelector(
+                ".menu-btn"
+            );
+
+
+        const mobileMenu =
+            document.querySelector(
+                ".mobile-menu"
+            );
+
+
+        const mobileLinks =
+            document.querySelectorAll(
+                ".mobile-menu a"
+            );
+
+
+
+        /* Open / Close */
+
+        menuBtn.addEventListener(
+            "click",
+            () => {
+
+
+                const isOpen =
+                    mobileMenu.classList.toggle(
+                        "active"
+                    );
+
+
+                menuBtn.classList.toggle(
+                    "active"
+                );
+
+
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                );
+
+
+            }
+        );
+
+
+
+        /* Close after clicking link */
+
+        mobileLinks.forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+
+                        mobileMenu.classList.remove(
+                            "active"
+                        );
+
+
+                        menuBtn.classList.remove(
+                            "active"
+                        );
+
+
+                        menuBtn.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* Close with Escape */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+
+                    mobileMenu.classList.remove(
+                        "active"
+                    );
+
+
+                    menuBtn.classList.remove(
+                        "active"
+                    );
+
+
+                    menuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+
+        /* =====================================================
+           RESET MOBILE MENU WHEN SCREEN BECOMES DESKTOP
+        ===================================================== */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+
+                if (
+                    window.innerWidth > 850
+                ) {
+
+
+                    mobileMenu.classList.remove(
+                        "active"
+                    );
+
+
+                    menuBtn.classList.remove(
+                        "active"
+                    );
+
+
+                    menuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+
+        /* =====================================================
+           ACTIVE NAVIGATION
+        ===================================================== */
+
+        const allNavLinks =
+            document.querySelectorAll(
+                ".nav-links a, .mobile-menu a"
+            );
+
+
+        allNavLinks.forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+
+                        allNavLinks.forEach(
+                            item => {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        link.classList.add(
+                            "active"
+                        );
+
+
+                    }
+                );
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
